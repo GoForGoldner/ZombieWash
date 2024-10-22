@@ -6,7 +6,7 @@ public class Movement : MonoBehaviour
     private float speed = 100.0f; // Adjust the speed for a more natural movement
     [SerializeField]
     private float arrivalThreshold = 0.1f;
-    
+
     private bool moving = false;
     private Vector3 travelCoordinates;
 
@@ -16,8 +16,6 @@ public class Movement : MonoBehaviour
         // Handle movement
         if (moving) moveTowardsTarget();
 
-        // Check for mouse click to set new destination
-        if (Input.GetMouseButtonDown(1)) setDestination();
     }
 
     private void moveTowardsTarget()
@@ -34,22 +32,9 @@ public class Movement : MonoBehaviour
         }
     }
 
-    private void setDestination()
+    public void setDestination(Vector3 destination)
     {
         moving = true;
-
-        // Convert mouse position to world position
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        RaycastHit hit;
-
-        if (Physics.Raycast(ray, out hit))
-        {
-            travelCoordinates = hit.point; // Set the target to the hit point on the collider
-            travelCoordinates.y = transform.position.y;
-        }
-        else
-        {
-            travelCoordinates = ray.GetPoint(0); // Example: point 10 units in front of the camera
-        }
+        travelCoordinates = destination;
     }
 }
