@@ -12,6 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18936775af7c5744ca90989f66f74e84, type: 3}
   m_Name: Food
   m_EditorClassIdentifier: 
-  taskName: Food
-  machineTravelLocation: {x: 0, y: 0, z: 0}
-  turnsToComplete: 1
+  <TaskName>k__BackingField: Food
+  <TurnsToComplete>k__BackingField: 1
