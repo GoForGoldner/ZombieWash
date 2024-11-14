@@ -9,6 +9,18 @@ EditorBuildSettings:
     path: Assets/Scenes/Menu.unity
     guid: 14c7840fb6f22624cade9adf153e4100
   - enabled: 1
+    path: Assets/Scenes/Level Selector.unity
+    guid: fa984a0bb47fa8e458eb7739c95bc6b9
+  - enabled: 1
     path: Assets/Scenes/DayOne.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
+  - enabled: 1
+    path: Assets/Scenes/DayTwo.unity
+    guid: a9ed7319550ba5b4692a49a255458cab
+  - enabled: 1
+    path: Assets/Scenes/DayThree.unity
+    guid: 704ac1ce8ada7614f9deeb08100c950d
+  - enabled: 1
+    path: Assets/Scenes/DayFour.unity
+    guid: 4e65809dad160304db77512748d11608
   m_configObjects: {}

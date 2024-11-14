@@ -8,6 +8,7 @@ TagManager:
   - Station
   - TurnManager
   - Hand
+  - PlayerData
   layers:
   - Default
   - TransparentFX

@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class TurnManager : MonoBehaviour {
     private int _currentTurn;
@@ -10,6 +11,8 @@ public class TurnManager : MonoBehaviour {
 
     [SerializeField]
     private CardDeck _deck;
+
+    private PlayerData _playerData;
 
     [SerializeField] private Timer _timer;
 
@@ -46,6 +49,7 @@ public class TurnManager : MonoBehaviour {
 
     // Unity Related functions:
     void Start() {
+        _playerData = PlayerData.Instance;
         _loseScreenCanvas.gameObject.SetActive(false);
         _winScreenCanvas.gameObject.SetActive(false);
         _currentTurn = 1;
@@ -78,6 +82,10 @@ public class TurnManager : MonoBehaviour {
     private void WinGame() {
         _winScreenCanvas.gameObject.SetActive(true);
         _timer.DisableTimer();
+
+        _playerData.IncreaseCurrentLevel();
+        // TODO change
+        _playerData.ChangeStarCount(SceneManager.GetActiveScene().buildIndex - 1, 3);
     }
 
     private void CheckForGameWin() {
