@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class TurnManager : MonoBehaviour {
     private int _currentTurn;
@@ -12,14 +13,22 @@ public class TurnManager : MonoBehaviour {
     [SerializeField]
     private CardDeck _deck;
 
+    [SerializeField] private Button _readyButton;
+
+    [SerializeField] private List<Image> _stars;
+    [SerializeField] private Sprite _emptyStar;
+    [SerializeField] private Sprite _fullStar;
+
     private PlayerData _playerData;
+
+    public int StarCount = 3;
 
     [SerializeField] private Timer _timer;
 
     [SerializeField]
     private TMP_Text _turnText;
 
-    [SerializeField] private List<Station> _stations = new List<Station>();
+    [SerializeField] private List<Station> _stations = new();
 
     [SerializeField]
     private Canvas _loseScreenCanvas;
@@ -40,6 +49,7 @@ public class TurnManager : MonoBehaviour {
             station.StationLowerTurn();
         }
 
+        UpdateStarDisplay();
         DrawCardOnTurn(_currentTurn);
         CheckForGameWin();
 
@@ -54,8 +64,16 @@ public class TurnManager : MonoBehaviour {
         _winScreenCanvas.gameObject.SetActive(false);
         _currentTurn = 1;
         UpdateTurnText();
+        _readyButton.onClick.AddListener(StartGame);
 
+        _readyButton.gameObject.SetActive(true);
+        _hand.gameObject.SetActive(false);
+    }
+
+    private void StartGame() {
         _timer.StartTimer();
+        _readyButton.gameObject.SetActive(false);
+        _hand.gameObject.SetActive(true);
     }
 
     private void OnEnable() {
@@ -84,8 +102,9 @@ public class TurnManager : MonoBehaviour {
         _timer.DisableTimer();
 
         _playerData.IncreaseCurrentLevel();
-        // TODO change
-        _playerData.ChangeStarCount(SceneManager.GetActiveScene().buildIndex - 1, 3);
+
+        Debug.Log($"The StarCount is: {StarCount}");
+        _playerData.ChangeStarCount(SceneManager.GetActiveScene().buildIndex - 1, StarCount);
     }
 
     private void CheckForGameWin() {
@@ -97,6 +116,17 @@ public class TurnManager : MonoBehaviour {
     private void DrawCardOnTurn(int turn) {
         if (turn == 3 || turn == 5 || turn == 7) {
             _hand.DrawCardFromDeck();
+        }
+    }
+
+    private void UpdateStarDisplay() {
+        int stars = StarCount;
+        foreach (Image star in _stars) {
+            if (stars-- > 0) {
+                star.sprite = _fullStar;
+            } else {
+                star.sprite = _emptyStar;
+            }
         }
     }
 }

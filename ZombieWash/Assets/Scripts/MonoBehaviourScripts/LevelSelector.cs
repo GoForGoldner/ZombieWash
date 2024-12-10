@@ -1,9 +1,6 @@
-using JetBrains.Annotations;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 
 public class LevelSelector : MonoBehaviour
 {
@@ -40,7 +37,7 @@ public class LevelSelector : MonoBehaviour
     }
 
     public void DisplayStars() {
-        for (int i = 0; i < _playerData.CurrentLevel; i++) {
+        for (int i = 0; i < _playerData.CurrentLevel && i < _levels.Count; i++) {
             LevelData levelData = _playerData._levelData[i];
             _levels[i]._starCount = levelData.Stars;
             _levels[i].DisplayStars();

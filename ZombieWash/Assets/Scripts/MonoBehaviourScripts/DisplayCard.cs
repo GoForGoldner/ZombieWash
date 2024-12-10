@@ -1,12 +1,7 @@
-using System;
-using System.Collections.Generic;
-using System.IO.Pipes;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
-using UnityEngine.XR;
-using static System.Collections.Specialized.BitVector32;
 
 public class DisplayCard : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IDragHandler {
     public CardScriptableObject CardScript;
@@ -30,7 +25,7 @@ public class DisplayCard : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     [SerializeField]
     private Image _healthBar;
 
-    private const float _dropRadius = 50f;
+    private const float _dropRadius = 80f;
     private Vector2 _dragOffset;
     private bool _onStation = false;
     private bool _isDragging = false;
@@ -135,13 +130,13 @@ public class DisplayCard : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
                 _healthBar.color = new Color(32f / 255f, 221f / 255f, 26f / 255f); // Green
                 break;
             case 2:
-                _healthBar.color = new Color(229f / 255f, 105f / 255f, 14f / 255f); // Orange
+                _healthBar.color = new Color(255f / 255f, 255f / 255f, 0f / 255f); // Yellow
                 break;
             case 1:
-                _healthBar.color = new Color(229f / 255f, 0f / 255f, 0f / 255f); // Red
+                _healthBar.color = new Color(229f / 255f, 105f / 255f, 14f / 255f); // Orange
                 break;
             default:
-                _healthBar.color = Color.white; // Default to white or any other color
+                _healthBar.color = new Color(229f / 255f, 0f / 255f, 0f / 255f); // Red
                 break;
         }
     }

@@ -1,21 +1,17 @@
-using JetBrains.Annotations;
-using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.UI;
-using UnityEngine.XR;
 
 public class Hand : MonoBehaviour {
     [System.Serializable]
     private struct Refrences {
         public Canvas HandCanvas;
         public CardDeck CardDeck;
+        public TurnManager TurnManager;
     }
 
     [SerializeField] private Sizing _sizing;
     [SerializeField] private Refrences _refrences;
-    [SerializeField] [Range(1, 7)] private int _startingHandSize;
+    [SerializeField][Range(1, 7)] private int _startingHandSize;
 
     private readonly List<GameObject> _cardObjects = new();
 
@@ -44,12 +40,34 @@ public class Hand : MonoBehaviour {
     }
 
     public void LowerCardsHealth() {
+        // Collect cards to be removed in a separate list
+        List<GameObject> cardsToRemove = new();
+
         foreach (GameObject card in _cardObjects) {
             CardStats cardStats = card.GetComponent<DisplayCard>().CardStats;
-            if (cardStats.CardDied()) EventManager.Instance.OnLoseGame();
-            cardStats.LowerHealth();
+            if (cardStats.CardDied()) {
+                _refrences.TurnManager.StarCount--;
+                if (_refrences.TurnManager.StarCount == 0) {
+                    EventManager.Instance.OnLoseGame();
+                    return;
+                }
+                else {
+                    cardsToRemove.Add(card);
+                }
+            }
+
+            if (card) {
+                cardStats.LowerHealth();
+            }
+        }
+
+        // Remove and destroy cards after the iteration
+        foreach (GameObject card in cardsToRemove) {
+            _cardObjects.Remove(card);
+            Destroy(card);
         }
     }
+
 
     public bool Empty() {
         return _cardObjects.Count == 0;
@@ -66,6 +84,7 @@ public class Hand : MonoBehaviour {
     private void DisplayHand() {
         float xOffsetTemp = _sizing.XOffset;
         float spacing = _sizing.DeckWidth / _cardObjects.Count;
+        int siblingIndex = 0;
 
         foreach (GameObject cardObject in _cardObjects) {
             // Set the parent to the Canvas
@@ -75,8 +94,9 @@ public class Hand : MonoBehaviour {
             if (!cardObject.TryGetComponent<RectTransform>(out var rectTransform)) continue;
 
             cardObject.GetComponent<DisplayCard>().ChangeCardPositionAndScale(new Vector2(xOffsetTemp, _sizing.YOffset), _sizing.CardSizeScale);
-            //rectTransform.anchoredPosition = new Vector2(xOffsetTemp, _yOffset);
-            //cardObject.GetComponent<DisplayCard>().OriginalPosition = rectTransform.anchoredPosition;
+            // Set sibling index to maintain correct z-order
+            cardObject.transform.SetSiblingIndex(siblingIndex);
+            siblingIndex++;
 
             xOffsetTemp += spacing; // Increment xOffsetTemp for the next card
         }

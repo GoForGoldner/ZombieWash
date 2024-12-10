@@ -243,16 +243,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CardScript: {fileID: 0}
-  TaskList: []
   _taskText: {fileID: 9175257208893667587}
   _frontSide: {fileID: 309245186656089397}
   _backSide: {fileID: 1913050104944354159}
   _thumbnail: {fileID: 5135850172935579851}
   _healthBar: {fileID: 8763860639887184464}
-  Health: 0
-  _sizeOfCardOnStation: 0.488
-  OnStation: 0
-  OriginalPosition: {x: 0, y: 0}
 --- !u!61 &-5896566930918842433
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -287,11 +282,11 @@ BoxCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
-    oldSize: {x: 0, y: 0}
-    newSize: {x: 0, y: 0}
-    adaptiveTilingThreshold: 0
+    border: {x: 0.020000001, y: 0.020000001, z: 0.020000001, w: 0.020000001}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 25.6, y: 16}
+    newSize: {x: 25.6, y: 16}
+    adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0

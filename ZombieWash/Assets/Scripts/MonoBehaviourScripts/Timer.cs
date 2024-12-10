@@ -1,12 +1,10 @@
-using JetBrains.Annotations;
 using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
 public class Timer : MonoBehaviour
 {
-    private bool _timerEnabled = true;
+    [SerializeField] private bool _timerEnabled = true;
     [SerializeField] private int _timerLength;
     [SerializeField] private TMP_Text _text;
 
